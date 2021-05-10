@@ -1,0 +1,1090 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tracker client 1.0.0-alpha documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-tracker-client-s-documentation">
+<h1>Welcome to tracker_client’s documentation!<a class="headerlink" href="#welcome-to-tracker-client-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>The Tracker Python API Client provides a simple Python interface for the <a class="reference external" href="https://github.com/canada-ca/tracker/blob/master/api-js/README.md/">Tracker GraphQL API</a>,
+with the aim of allowing users to easily integrate data from Tracker into existing workflows and platforms.</p>
+<div class="toctree-wrapper compound">
+<span id="document-modules/index"></span><div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<span id="document-modules/client"></span><div class="section" id="module-tracker_client.client">
+<span id="tracker-client-client"></span><h3>tracker_client.client<a class="headerlink" href="#module-tracker_client.client" title="Permalink to this headline">¶</a></h3>
+<p>This module defines the Client class, used to connect to the Tracker API.</p>
+<dl class="py class">
+<dt id="tracker_client.client.Client">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Client</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://tracker.alpha.canada.ca/graphql'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'en'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.client.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents the user’s connection to Tracker, which is established on instantiation.
+It allows the user to retrieve <a class="reference internal" href="index.html#tracker_client.organization.Organization" title="tracker_client.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a> and
+<a class="reference internal" href="index.html#tracker_client.domain.Domain" title="tracker_client.domain.Domain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Domain</span></code></a> objects representing organizations they are members of
+and domains their organization(s) control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – Tracker GraphQL endpoint, defaults to alpha endpoint.</p></li>
+<li><p><strong>language</strong> (<em>str</em>) – desired language to get data from Tracker in (‘en’ or ‘fr’).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><p><strong>gql_client</strong> (<em>gql.Client</em>) – gql client instance used to execute queries.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="tracker_client.client.Client.get_organization">
+<code class="sig-name descname"><span class="pre">get_organization</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.client.Client.get_organization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an <a class="reference internal" href="index.html#tracker_client.organization.Organization" title="tracker_client.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a> from specified name. You must be a member of that
+organization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of organization to get and construct <a class="reference internal" href="index.html#tracker_client.organization.Organization" title="tracker_client.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a> for.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The specified organization.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#tracker_client.organization.Organization" title="tracker_client.organization.Organization">Organization</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if an invalid organization name is given.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.client.Client.get_organizations">
+<code class="sig-name descname"><span class="pre">get_organizations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.client.Client.get_organizations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of your <a class="reference internal" href="index.html#tracker_client.organization.Organization" title="tracker_client.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">organizations</span></code></a>.</p>
+<p>Note that the optional search term is supplied as part of the GraphQL query variables and
+affects the API response received, rather than filtering results client-side.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search</strong> (<em>str</em>) – Search term to filter results with. For example, supplying
+the string “canada” would return only Organizations containing “canada” in their name.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of your organizations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="index.html#tracker_client.organization.Organization" title="tracker_client.organization.Organization">Organization</a>]</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if your organizations can’t be retrieved.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.client.Client.get_domain">
+<code class="sig-name descname"><span class="pre">get_domain</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.client.Client.get_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a <a class="reference internal" href="index.html#tracker_client.domain.Domain" title="tracker_client.domain.Domain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Domain</span></code></a> for the given domain. One of your organizations must
+control that domain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>domain</strong> (<em>str</em>) – name of domain to get and construct Domain for.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The specified domain.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#tracker_client.domain.Domain" title="tracker_client.domain.Domain">Domain</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if an invalid domain is requested.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.client.Client.get_domains">
+<code class="sig-name descname"><span class="pre">get_domains</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.client.Client.get_domains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of your <a class="reference internal" href="index.html#tracker_client.domain.Domain" title="tracker_client.domain.Domain"><code class="xref py py-class docutils literal notranslate"><span class="pre">domains</span></code></a>.</p>
+<p>Note that the optional search term is supplied as part of the GraphQL query variables and
+affects the API response received, rather than filtering results client-side.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search</strong> (<em>str</em>) – Search term to filter results with. For example, supplying
+the string “abc” would return only Domains containing “abc” in their domain_name.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of your domains.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="index.html#tracker_client.domain.Domain" title="tracker_client.domain.Domain">Domain</a>]</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if your domains can’t be retrieved.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.client.Client.execute_query">
+<code class="sig-name descname"><span class="pre">execute_query</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.client.Client.execute_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a query on this client, with given parameters.</p>
+<p>Intended for internal use, but if for some reason you need an unformatted
+response from the API you could call this.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>DocumentNode</em>) – a gql query string that has been parsed with gql().</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) – variables to pass along with query.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Results of executing query on API.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TransportProtocolError</strong> – if server response is not GraphQL.</p></li>
+<li><p><strong>TransportServerError</strong> – if there is a server error.</p></li>
+<li><p><strong>GraphQLError</strong> – if query validation fails.</p></li>
+<li><p><strong>Exception</strong> – if any unhandled exception is raised within function</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-modules/organization"></span><div class="section" id="module-tracker_client.organization">
+<span id="tracker-client-organization"></span><h3>tracker_client.organization<a class="headerlink" href="#module-tracker_client.organization" title="Permalink to this headline">¶</a></h3>
+<p>This module defines the Domain class, which models organizations monitored by Tracker
+and offers methods to get data about them.</p>
+<dl class="py class">
+<dt id="tracker_client.organization.Organization">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Organization</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acronym</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">province</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domainCount</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.organization.Organization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that represents an organization in Tracker.</p>
+<p>Instance variables provide access to scalar fields for the organization in the GraphQL schema,
+while methods return JSON data for non-scalar fields. Users should not typically
+instantiate this class manually, instead use methods provided by
+<a class="reference internal" href="index.html#tracker_client.client.Client" title="tracker_client.client.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a> to get Organizations.</p>
+<p>The naming irregularity between <a class="reference internal" href="#tracker_client.organization.Organization.__init__" title="tracker_client.organization.Organization.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code></a> parameters and instance variables is to match
+parameter names to the keys contained in the API responses. This allows easy
+use of dict unpacking when creating an Organization instance. Instance variable names instead
+adhere to Python convention.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="index.html#module-tracker_client.client" title="tracker_client.client"><strong>client</strong></a> (<a class="reference internal" href="index.html#tracker_client.client.Client" title="tracker_client.client.Client"><em>Client</em></a>) – the <a class="reference internal" href="index.html#tracker_client.client.Client" title="tracker_client.client.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a> that created
+this object. Provides a way for Organization methods to execute queries.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – full name of the organization.</p></li>
+<li><p><strong>acronym</strong> (<em>str</em>) – acronym for the organization.</p></li>
+<li><p><strong>zone</strong> (<em>str</em>) – the zone the organization belongs to.</p></li>
+<li><p><strong>sector</strong> (<em>str</em>) – the sector the organization belongs to.</p></li>
+<li><p><strong>country</strong> (<em>str</em>) – country the organization resides in.</p></li>
+<li><p><strong>province</strong> (<em>str</em>) – province the organization resides in.</p></li>
+<li><p><strong>city</strong> (<em>str</em>) – city the organization resides in.</p></li>
+<li><p><strong>verified</strong> (<em>bool</em>) – if the organization is verified or not.</p></li>
+<li><p><strong>domainCount</strong> (<em>int</em>) – number of domains controlled by the organization.</p></li>
+<li><p><strong>domain_count</strong> (<em>int</em>) – the instance variable containing the domainCount value.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="tracker_client.organization.Organization.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acronym</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">province</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domainCount</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.organization.Organization.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> (<a class="reference internal" href="index.html#tracker_client.client.Client" title="tracker_client.client.Client"><em>Client</em></a>) – see class docstring.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – see class docstring.</p></li>
+<li><p><strong>acronym</strong> (<em>str</em>) – see class docstring.</p></li>
+<li><p><strong>zone</strong> (<em>str</em>) – see class docstring.</p></li>
+<li><p><strong>sector</strong> (<em>str</em>) – see class docstring.</p></li>
+<li><p><strong>country</strong> (<em>str</em>) – see class docstring.</p></li>
+<li><p><strong>province</strong> (<em>str</em>) – see class docstring.</p></li>
+<li><p><strong>city</strong> (<em>str</em>) – see class docstring.</p></li>
+<li><p><strong>verified</strong> (<em>bool</em>) – see class docstring.</p></li>
+<li><p><strong>domainCount</strong> (<em>int</em>) – sets domain_count.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.organization.Organization.get_summary">
+<code class="sig-name descname"><span class="pre">get_summary</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.organization.Organization.get_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get summary metrics for this Organization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>formatted JSON data containing summary metrics for an organization.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tracker_client.client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_orgs</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_organizations</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">my_orgs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_summary</span><span class="p">())</span>
+<span class="go">{</span>
+<span class="go">    &quot;FOO&quot;: {</span>
+<span class="go">        &quot;domainCount&quot;: 10,</span>
+<span class="go">        &quot;summaries&quot;: {</span>
+<span class="go">            &quot;web&quot;: {</span>
+<span class="go">                &quot;total&quot;: 10,</span>
+<span class="go">                &quot;categories&quot;: [</span>
+<span class="go">                    {</span>
+<span class="go">                        &quot;name&quot;: &quot;pass&quot;,</span>
+<span class="go">                        &quot;count&quot;: 1,</span>
+<span class="go">                        &quot;percentage&quot;: 10</span>
+<span class="go">                    },</span>
+<span class="go">                    {</span>
+<span class="go">                        &quot;name&quot;: &quot;fail&quot;,</span>
+<span class="go">                        &quot;count&quot;: 9,</span>
+<span class="go">                        &quot;percentage&quot;: 90</span>
+<span class="go">                    }</span>
+<span class="go">                ]</span>
+<span class="go">            },</span>
+<span class="go">            &quot;mail&quot;: {</span>
+<span class="go">                &quot;total&quot;: 10,</span>
+<span class="go">                &quot;categories&quot;: [</span>
+<span class="go">                    {</span>
+<span class="go">                        &quot;name&quot;: &quot;pass&quot;,</span>
+<span class="go">                        &quot;count&quot;: 5,</span>
+<span class="go">                        &quot;percentage&quot;: 50</span>
+<span class="go">                    },</span>
+<span class="go">                    {</span>
+<span class="go">                        &quot;name&quot;: &quot;fail&quot;,</span>
+<span class="go">                        &quot;count&quot;: 5,</span>
+<span class="go">                        &quot;percentage&quot;: 50</span>
+<span class="go">                    }</span>
+<span class="go">                ]</span>
+<span class="go">            }</span>
+<span class="go">        }</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.organization.Organization.get_domains">
+<code class="sig-name descname"><span class="pre">get_domains</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.organization.Organization.get_domains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of Domains controlled by this Organization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="index.html#tracker_client.domain.Domain" title="tracker_client.domain.Domain"><code class="xref py py-class docutils literal notranslate"><span class="pre">domains</span></code></a> controlled by
+this Organization.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[<a class="reference internal" href="index.html#tracker_client.domain.Domain" title="tracker_client.domain.Domain">Domain</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-modules/domain"></span><div class="section" id="module-tracker_client.domain">
+<span id="tracker-client-domain"></span><h3>tracker_client.domain<a class="headerlink" href="#module-tracker_client.domain" title="Permalink to this headline">¶</a></h3>
+<p>This module defines the Domain class, which models domains monitored by Tracker
+and offers methods to get data about domains.</p>
+<dl class="py class">
+<dt id="tracker_client.domain.Domain">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Domain</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastRan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dmarcPhase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.domain.Domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that represents a domain in Tracker.</p>
+<p>Instance variables provide access to scalar fields for the domain in the GraphQL schema,
+while methods return JSON data for non-scalar fields. Users should not typically
+instantiate this class manually, instead use methods provided by
+<a class="reference internal" href="index.html#tracker_client.client.Client" title="tracker_client.client.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a> to get Domains.</p>
+<p>The naming irregularity between <a class="reference internal" href="#tracker_client.domain.Domain.__init__" title="tracker_client.domain.Domain.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code></a>  parameters and instance variables is to match
+parameter names to the keys contained in the API responses. This allows easy
+use of dict unpacking when creating a Domain instance. Instance variable names instead
+adhere to Python convention.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="index.html#module-tracker_client.client" title="tracker_client.client"><strong>client</strong></a> (<a class="reference internal" href="index.html#tracker_client.client.Client" title="tracker_client.client.Client"><em>Client</em></a>) – the <a class="reference internal" href="index.html#tracker_client.client.Client" title="tracker_client.client.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a> that created
+this object. Provides a way for Domain methods to execute queries.</p></li>
+<li><p><a class="reference internal" href="index.html#module-tracker_client.domain" title="tracker_client.domain"><strong>domain</strong></a> (<em>str</em>) – name of the domain.</p></li>
+<li><p><strong>last_ran</strong> (<em>str</em>) – timestamp for last scan run on the domain.</p></li>
+<li><p><strong>dmarc_phase</strong> (<em>str</em>) – DMARC implementation phase. # TODO: Add ref. to relevant docs</p></li>
+<li><p><strong>dkim_selectors</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – DKIM selector strings associated with the domain. # TODO: Add ref. to relevant docs</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="tracker_client.domain.Domain.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastRan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dmarcPhase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.domain.Domain.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> (<a class="reference internal" href="index.html#tracker_client.client.Client" title="tracker_client.client.Client"><em>Client</em></a>) – As in class docstring.</p></li>
+<li><p><strong>domain</strong> (<em>str</em>) – sets domain_name.</p></li>
+<li><p><strong>lastRan</strong> (<em>str</em>) – sets last_ran.</p></li>
+<li><p><strong>dmarcPhase</strong> (<em>str</em>) – sets dmarc_phase.</p></li>
+<li><p><strong>selectors</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – sets dkim_selectors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.domain.Domain.get_status">
+<code class="sig-name descname"><span class="pre">get_status</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.domain.Domain.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return pass/fail status information for this Domain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>formatted JSON data containing the domain’s status.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tracker_client.client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_domains</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_domains</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">my_domains</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_status</span><span class="p">())</span>
+<span class="go">{</span>
+<span class="go">    &quot;foo.bar&quot;: {</span>
+<span class="go">        &quot;lastRan&quot;: &quot;2021-01-23 22:33:26.921529&quot;,</span>
+<span class="go">        &quot;status&quot;: {</span>
+<span class="go">            &quot;https&quot;: &quot;FAIL&quot;,</span>
+<span class="go">            &quot;ssl&quot;: &quot;FAIL&quot;,</span>
+<span class="go">            &quot;dmarc&quot;: &quot;PASS&quot;,</span>
+<span class="go">            &quot;dkim&quot;: &quot;PASS&quot;,</span>
+<span class="go">            &quot;spf&quot;: &quot;PASS&quot;</span>
+<span class="go">        }</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.domain.Domain.get_monthly_dmarc_summary">
+<code class="sig-name descname"><span class="pre">get_monthly_dmarc_summary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.domain.Domain.get_monthly_dmarc_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the DMARC summary for the specified month and year.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>month</strong> (<em>str</em>) – the full name of a month.</p></li>
+<li><p><strong>year</strong> (<em>int</em>) – positive integer representing a year.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted JSON data containing a DMARC summary.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tracker_client.client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foobar</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="s2">&quot;foo.bar&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foobar</span><span class="o">.</span><span class="n">get_monthly_dmarc</span><span class="p">(</span><span class="s2">&quot;september&quot;</span><span class="p">,</span> <span class="mi">2020</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">    &quot;foo.bar&quot;: {</span>
+<span class="go">        &quot;month&quot;: &quot;SEPTEMBER&quot;,</span>
+<span class="go">        &quot;year&quot;: &quot;2020&quot;,</span>
+<span class="go">        &quot;categoryPercentages&quot;: {</span>
+<span class="go">            &quot;fullPassPercentage&quot;: 87,</span>
+<span class="go">            &quot;passSpfOnlyPercentage&quot;: 0,</span>
+<span class="go">            &quot;passDkimOnlyPercentage&quot;: 6,</span>
+<span class="go">            &quot;failPercentage&quot;: 8,</span>
+<span class="go">            &quot;totalMessages&quot;: 10534</span>
+<span class="go">        }</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.domain.Domain.get_yearly_dmarc_summaries">
+<code class="sig-name descname"><span class="pre">get_yearly_dmarc_summaries</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.domain.Domain.get_yearly_dmarc_summaries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get yearly DMARC summaries for a domain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>formatted JSON data containing yearly DMARC summaries.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Output is truncated, you should expect more than 2 reports in the list.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tracker_client.client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foobar</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="s2">&quot;foo.bar&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foobar</span><span class="o">.</span><span class="n">get_yearly_dmarc</span><span class="p">())</span>
+<span class="go">{</span>
+<span class="go">    &quot;foo.bar&quot;: [</span>
+<span class="go">        {</span>
+<span class="go">            &quot;month&quot;: &quot;AUGUST&quot;,</span>
+<span class="go">            &quot;year&quot;: &quot;2020&quot;,</span>
+<span class="go">            &quot;categoryPercentages&quot;: {</span>
+<span class="go">                &quot;fullPassPercentage&quot;: 90,</span>
+<span class="go">                &quot;passSpfOnlyPercentage&quot;: 0,</span>
+<span class="go">                &quot;passDkimOnlyPercentage&quot;: 5,</span>
+<span class="go">                &quot;failPercentage&quot;: 5,</span>
+<span class="go">                &quot;totalMessages&quot;: 7045</span>
+<span class="go">            }</span>
+<span class="go">        },</span>
+<span class="go">        {</span>
+<span class="go">            &quot;month&quot;: &quot;JULY&quot;,</span>
+<span class="go">            &quot;year&quot;: &quot;2020&quot;,</span>
+<span class="go">            &quot;categoryPercentages&quot;: {</span>
+<span class="go">                &quot;fullPassPercentage&quot;: 82,</span>
+<span class="go">                &quot;passSpfOnlyPercentage&quot;: 0,</span>
+<span class="go">                &quot;passDkimOnlyPercentage&quot;: 11,</span>
+<span class="go">                &quot;failPercentage&quot;: 8,</span>
+<span class="go">                &quot;totalMessages&quot;: 6647</span>
+<span class="go">            }</span>
+<span class="go">        },</span>
+<span class="go">    ]</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.domain.Domain.get_all_results">
+<code class="sig-name descname"><span class="pre">get_all_results</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_scans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.domain.Domain.get_all_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get web and email scan results for this Domain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>all_scans</strong> (<em>bool</em>) – if True, get all scans. If False, get only most recent.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted JSON data containing all scan results for the domain.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tracker_client.client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foobar</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="s2">&quot;foo.bar&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foobar</span><span class="o">.</span><span class="n">get_all_results</span><span class="p">())</span>
+<span class="go">{</span>
+<span class="go">    &quot;foo.bar&quot;: {</span>
+<span class="go">        &quot;lastRan&quot;: &quot;2021-03-08 23:01:27.416532&quot;,</span>
+<span class="go">        &quot;web&quot;: {...}, # See Domain.get_web_results example below</span>
+<span class="go">        &quot;email&quot;: {...} # See Domain.get_email_results example below</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.domain.Domain.get_web_results">
+<code class="sig-name descname"><span class="pre">get_web_results</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_scans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.domain.Domain.get_web_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get web scan results for this Domain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>all_scans</strong> (<em>bool</em>) – if True, get all scans. If False, get only most recent.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted JSON data containing web scan results for the domain.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tracker_client.client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foobar</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="s2">&quot;foo.bar&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foobar</span><span class="o">.</span><span class="n">get_web_results</span><span class="p">())</span>
+<span class="go">{</span>
+<span class="go">    &quot;foo.bar&quot;: {</span>
+<span class="go">        &quot;lastRan&quot;: &quot;2021-03-08 23:01:27.416532&quot;,</span>
+<span class="go">        &quot;web&quot;: {</span>
+<span class="go">            &quot;https&quot;: [</span>
+<span class="go">                {</span>
+<span class="go">                    &quot;timestamp&quot;: &quot;2021-03-09T00:28:12.880Z&quot;,</span>
+<span class="go">                    &quot;implementation&quot;: &quot;Valid HTTPS&quot;,</span>
+<span class="go">                    &quot;enforced&quot;: &quot;Strict&quot;,</span>
+<span class="go">                    &quot;hsts&quot;: &quot;HSTS Fully Implemented&quot;,</span>
+<span class="go">                    &quot;hstsAge&quot;: &quot;31536000&quot;,</span>
+<span class="go">                    &quot;preloaded&quot;: &quot;HSTS Preloaded&quot;,</span>
+<span class="go">                    &quot;positiveGuidanceTags&quot;: {},</span>
+<span class="go">                    &quot;neutralGuidanceTags&quot;: {},</span>
+<span class="go">                    &quot;negativeGuidanceTags&quot;: {}</span>
+<span class="go">                }</span>
+<span class="go">            ],</span>
+<span class="go">            &quot;ssl&quot;: [</span>
+<span class="go">                {</span>
+<span class="go">                    &quot;timestamp&quot;: &quot;2021-03-08 23:01:31.545568&quot;,</span>
+<span class="go">                    &quot;strongCiphers&quot;: [</span>
+<span class="go">                        &quot;TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384&quot;,</span>
+<span class="go">                        &quot;TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256&quot;</span>
+<span class="go">                    ],</span>
+<span class="go">                    &quot;strongCurves&quot;: [],</span>
+<span class="go">                    &quot;acceptableCiphers&quot;: [</span>
+<span class="go">                        &quot;TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384&quot;,</span>
+<span class="go">                        &quot;TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256&quot;,</span>
+<span class="go">                        &quot;TLS_DHE_RSA_WITH_AES_256_GCM_SHA384&quot;,</span>
+<span class="go">                        &quot;TLS_DHE_RSA_WITH_AES_256_CBC_SHA256&quot;,</span>
+<span class="go">                        &quot;TLS_DHE_RSA_WITH_AES_128_GCM_SHA256&quot;,</span>
+<span class="go">                        &quot;TLS_DHE_RSA_WITH_AES_128_CBC_SHA256&quot;</span>
+<span class="go">                    ],</span>
+<span class="go">                    &quot;acceptableCurves&quot;: [],</span>
+<span class="go">                    &quot;weakCiphers&quot;: [],</span>
+<span class="go">                    &quot;weakCurves&quot;: [</span>
+<span class="go">                        &quot;prime256v1&quot;</span>
+<span class="go">                    ],</span>
+<span class="go">                    &quot;ccsInjectionVulnerable&quot;: false,</span>
+<span class="go">                    &quot;heartbleedVulnerable&quot;: false,</span>
+<span class="go">                    &quot;supportsEcdhKeyExchange&quot;: true,</span>
+<span class="go">                    &quot;positiveGuidanceTags&quot;: {</span>
+<span class="go">                        &quot;ssl5&quot;: {</span>
+<span class="go">                            &quot;tagName&quot;: &quot;SSL-acceptable-certificate&quot;,</span>
+<span class="go">                            &quot;guidance&quot;: &quot;Certificate chain signed using SHA-256/SHA-384/AEAD&quot;,</span>
+<span class="go">                            &quot;refLinks&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;6.1.3 Direction&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: &quot;https://www.canada.ca/en/government/system/digital-government/modern-emerging-technologies/policy-implementation-notices/implementing-https-secure-web-connections-itpin.html#toc6&quot;</span>
+<span class="go">                                }</span>
+<span class="go">                            ],</span>
+<span class="go">                            &quot;refLinksTech&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;See ITSP.40.062 for approved cipher list&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: &quot;https://cyber.gc.ca/en/guidance/guidance-securely-configuring-network-protocols-itsp40062&quot;</span>
+<span class="go">                                }</span>
+<span class="go">                            ]</span>
+<span class="go">                        }</span>
+<span class="go">                    },</span>
+<span class="go">                    &quot;neutralGuidanceTags&quot;: {},</span>
+<span class="go">                    &quot;negativeGuidanceTags&quot;: {}</span>
+<span class="go">                }</span>
+<span class="go">            ]</span>
+<span class="go">        }</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.domain.Domain.get_email_results">
+<code class="sig-name descname"><span class="pre">get_email_results</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_scans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.domain.Domain.get_email_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get email scan results for this Domain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>all_scans</strong> (<em>bool</em>) – if True, get all scans. If False, get only most recent.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted JSON data containing email scan results for the domain.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tracker_client.client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foobar</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="s2">&quot;foo.bar&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foobar</span><span class="o">.</span><span class="n">get_email_results</span><span class="p">())</span>
+<span class="go">{</span>
+<span class="go">    &quot;foo.bar&quot;: {</span>
+<span class="go">        &quot;lastRan&quot;: &quot;2021-03-08 23:01:27.416532&quot;,</span>
+<span class="go">        &quot;email&quot;: {</span>
+<span class="go">            &quot;dkim&quot;: [</span>
+<span class="go">                {</span>
+<span class="go">                    &quot;timestamp&quot;: &quot;2021-03-09T00:28:12.880Z&quot;,</span>
+<span class="go">                    &quot;results&quot;: {</span>
+<span class="go">                        &quot;edges&quot;: []</span>
+<span class="go">                    }</span>
+<span class="go">                }</span>
+<span class="go">            ],</span>
+<span class="go">            &quot;dmarc&quot;: [</span>
+<span class="go">                {</span>
+<span class="go">                    &quot;timestamp&quot;: &quot;2021-03-08 23:01:31.545568&quot;,</span>
+<span class="go">                    &quot;record&quot;: &quot;v=DMARC1; p=None; pct=100; rua=mailto:dmarc@cyber.gc.ca; ruf=mailto:dmarc@cyber.gc.ca; fo=1&quot;,</span>
+<span class="go">                    &quot;pPolicy&quot;: &quot;None&quot;,</span>
+<span class="go">                    &quot;spPolicy&quot;: &quot;None&quot;,</span>
+<span class="go">                    &quot;pct&quot;: 100,</span>
+<span class="go">                    &quot;positiveGuidanceTags&quot;: {</span>
+<span class="go">                        &quot;dmarc23&quot;: {</span>
+<span class="go">                            &quot;tagName&quot;: &quot;DMARC-valid&quot;,</span>
+<span class="go">                            &quot;guidance&quot;: &quot;DMARC record is properly formed&quot;,</span>
+<span class="go">                            &quot;refLinks&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;Implementation Guidance: Email Domain Protection&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ],</span>
+<span class="go">                            &quot;refLinksTech&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: null,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ]</span>
+<span class="go">                        }</span>
+<span class="go">                    },</span>
+<span class="go">                    &quot;neutralGuidanceTags&quot;: {</span>
+<span class="go">                        &quot;dmarc10&quot;: {</span>
+<span class="go">                            &quot;tagName&quot;: &quot;RUA-CCCS&quot;,</span>
+<span class="go">                            &quot;guidance&quot;: &quot;CCCS added to Aggregate sender list&quot;,</span>
+<span class="go">                            &quot;refLinks&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;B.3.1 DMARC Records&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ],</span>
+<span class="go">                            &quot;refLinksTech&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: null,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ]</span>
+<span class="go">                        },</span>
+<span class="go">                        &quot;dmarc14&quot;: {</span>
+<span class="go">                            &quot;tagName&quot;: &quot;TXT-DMARC-enabled&quot;,</span>
+<span class="go">                            &quot;guidance&quot;: &quot;Verification TXT records for all 3rd party senders exist&quot;,</span>
+<span class="go">                            &quot;refLinks&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;TBD&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ],</span>
+<span class="go">                            &quot;refLinksTech&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: null,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ]</span>
+<span class="go">                        },</span>
+<span class="go">                        &quot;dmarc17&quot;: {</span>
+<span class="go">                            &quot;tagName&quot;: &quot;SP-none&quot;,</span>
+<span class="go">                            &quot;guidance&quot;: &quot;Follow implementation guide&quot;,</span>
+<span class="go">                            &quot;refLinks&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;A.3.5 Monitor DMARC Reports and Correct Misconfigurations&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ],</span>
+<span class="go">                            &quot;refLinksTech&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;RFC 6.3 General Record Format, SP&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ]</span>
+<span class="go">                        }</span>
+<span class="go">                    },</span>
+<span class="go">                    &quot;negativeGuidanceTags&quot;: {</span>
+<span class="go">                        &quot;dmarc11&quot;: {</span>
+<span class="go">                            &quot;tagName&quot;: &quot;RUF-CCCS&quot;,</span>
+<span class="go">                            &quot;guidance&quot;: &quot;CCCS added to Forensic sender list&quot;,</span>
+<span class="go">                            &quot;refLinks&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;Missing from guide&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ],</span>
+<span class="go">                            &quot;refLinksTech&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: null,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ]</span>
+<span class="go">                        }</span>
+<span class="go">                    }</span>
+<span class="go">                }</span>
+<span class="go">            ],</span>
+<span class="go">            &quot;spf&quot;: [</span>
+<span class="go">                {</span>
+<span class="go">                    &quot;timestamp&quot;: &quot;2021-03-08 23:01:31.545568&quot;,</span>
+<span class="go">                    &quot;lookups&quot;: 5,</span>
+<span class="go">                    &quot;record&quot;: &quot;v=spf1 a:a.foo.bar a:b.foo.bar a:c.foo.bar include:spf.protection.outlook.com -all&quot;,</span>
+<span class="go">                    &quot;spfDefault&quot;: &quot;-all&quot;,</span>
+<span class="go">                    &quot;positiveGuidanceTags&quot;: {</span>
+<span class="go">                        &quot;spf12&quot;: {</span>
+<span class="go">                            &quot;tagName&quot;: &quot;SPF-valid&quot;,</span>
+<span class="go">                            &quot;guidance&quot;: &quot;SPF record is properly formed&quot;,</span>
+<span class="go">                            &quot;refLinks&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;Implementation Guidance: Email Domain Protection&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ],</span>
+<span class="go">                            &quot;refLinksTech&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: null,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ]</span>
+<span class="go">                        }</span>
+<span class="go">                    },</span>
+<span class="go">                    &quot;neutralGuidanceTags&quot;: {</span>
+<span class="go">                        &quot;spf8&quot;: {</span>
+<span class="go">                            &quot;tagName&quot;: &quot;ALL-hardfail&quot;,</span>
+<span class="go">                            &quot;guidance&quot;: &quot;Follow implementation guide&quot;,</span>
+<span class="go">                            &quot;refLinks&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: &quot;B.1.1 SPF Records&quot;,</span>
+<span class="go">                                    &quot;refLink&quot;: &quot;https://cyber.gc.ca/en/guidance/implementation-guidance-email-domain-protection#annb11&quot;</span>
+<span class="go">                                }</span>
+<span class="go">                            ],</span>
+<span class="go">                            &quot;refLinksTech&quot;: [</span>
+<span class="go">                                {</span>
+<span class="go">                                    &quot;description&quot;: null,</span>
+<span class="go">                                    &quot;refLink&quot;: null</span>
+<span class="go">                                }</span>
+<span class="go">                            ]</span>
+<span class="go">                        }</span>
+<span class="go">                    },</span>
+<span class="go">                    &quot;negativeGuidanceTags&quot;: {}</span>
+<span class="go">                }</span>
+<span class="go">            ]</span>
+<span class="go">        }</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tracker_client.domain.Domain.get_owners">
+<code class="sig-name descname"><span class="pre">get_owners</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.domain.Domain.get_owners" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of Organizations that control this domain</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of one or more <a class="reference internal" href="index.html#tracker_client.organization.Organization" title="tracker_client.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">organization(s)</span></code></a>
+responsible for this domain.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="index.html#tracker_client.organization.Organization" title="tracker_client.organization.Organization">Organization</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-modules/formatting"></span><div class="section" id="module-tracker_client.formatting">
+<span id="tracker-client-formatting"></span><h3>tracker_client.formatting<a class="headerlink" href="#module-tracker_client.formatting" title="Permalink to this headline">¶</a></h3>
+<p>Provides results formatting functions used in methods on Domain and Organization classes</p>
+<dl class="py function">
+<dt id="tracker_client.formatting.format_dmarc_monthly">
+<code class="sig-name descname"><span class="pre">format_dmarc_monthly</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.formatting.format_dmarc_monthly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the result dict in get_dmarc_summary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result</strong> (<em>dict</em>) – unformatted dict with results of DMARC_SUMMARY</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tracker_client.formatting.format_dmarc_yearly">
+<code class="sig-name descname"><span class="pre">format_dmarc_yearly</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.formatting.format_dmarc_yearly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the result dict in get_yearly_dmarc_summaries</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result</strong> (<em>dict</em>) – unformatted dict with results of YEARLY_DMARC_SUMMARIES</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tracker_client.formatting.format_summary">
+<code class="sig-name descname"><span class="pre">format_summary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.formatting.format_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the result dict in get_summary_by_name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result</strong> (<em>dict</em>) – unformatted dict with results of SUMMARY_BY_SLUG</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tracker_client.formatting.format_all_results">
+<code class="sig-name descname"><span class="pre">format_all_results</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.formatting.format_all_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the result dict in get_all_results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result</strong> (<em>dict</em>) – unformatted dict with results of ALL_RESULTS</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tracker_client.formatting.format_web_results">
+<code class="sig-name descname"><span class="pre">format_web_results</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.formatting.format_web_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the result dict in get_all_results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result</strong> (<em>dict</em>) – unformatted dict with results of ALL_RESULTS</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tracker_client.formatting.format_email_results">
+<code class="sig-name descname"><span class="pre">format_email_results</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.formatting.format_email_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the result dict in get_email_results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result</strong> (<em>dict</em>) – unformatted dict with results of EMAIL_RESULTS</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tracker_client.formatting.format_domain_status">
+<code class="sig-name descname"><span class="pre">format_domain_status</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.formatting.format_domain_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the result dict in get_domain_status</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result</strong> (<em>dict</em>) – unformatted dict with results of DOMAIN_STATUS</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>formatted results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span id="document-modules/core"></span><div class="section" id="module-tracker_client.core">
+<span id="tracker-client-core"></span><h3>tracker_client.core<a class="headerlink" href="#module-tracker_client.core" title="Permalink to this headline">¶</a></h3>
+<p>This module provides utility functions related to gql, for internal use.</p>
+<dl class="py function">
+<dt id="tracker_client.core.create_client">
+<code class="sig-name descname"><span class="pre">create_client</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://tracker.alpha.canada.ca/graphql'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'en'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.core.create_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a gql client object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – the Tracker GraphQL endpoint url.</p></li>
+<li><p><strong>auth_token</strong> (<em>str</em>) – JWT auth token, omit when initially obtaining the token (default is None).</p></li>
+<li><p><strong>lang</strong> (<em>str</em>) – desired language to get data from Tracker in (‘en’ or ‘fr’).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A gql client with AIOHTTPTransport.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#tracker_client.client.Client" title="tracker_client.client.Client">Client</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tracker_client.core.get_auth_token">
+<code class="sig-name descname"><span class="pre">get_auth_token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://tracker.alpha.canada.ca/graphql'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracker_client.core.get_auth_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a token to use for authentication.</p>
+<p>Takes in environment variables “TRACKER_UNAME” and “TRACKER_PASS” to get credentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – the Tracker GraphQL endpoint url.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JWT auth token to allow access to Tracker.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if credentials aren’t found in environment.</p></li>
+<li><p><strong>RuntimeError</strong> – if the server replies with an error.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span id="document-modules/queries"></span><div class="section" id="module-tracker_client.queries">
+<span id="tracker-client-queries"></span><h3>tracker_client.queries<a class="headerlink" href="#module-tracker_client.queries" title="Permalink to this headline">¶</a></h3>
+<p>This module contains the gql documents used to query the Tracker API</p>
+<dl class="field-list simple">
+<dt class="field-odd">var DocumentNode SIGN_IN_MUTATION</dt>
+<dd class="field-odd"><p>sign in and get authentication token</p>
+</dd>
+<dt class="field-even">var DocumentNode GET_DOMAIN</dt>
+<dd class="field-even"><p>get scalar fields of a domain</p>
+</dd>
+<dt class="field-odd">var DocumentNode GET_ORG</dt>
+<dd class="field-odd"><p>get scalar fields of an organization</p>
+</dd>
+<dt class="field-even">var DocumentNode GET_ALL_DOMAINS</dt>
+<dd class="field-even"><p>get scalar fields of all your domains</p>
+</dd>
+<dt class="field-odd">var DocumentNode GET_ALL_ORGS</dt>
+<dd class="field-odd"><p>get scalar fields of all your organizations</p>
+</dd>
+<dt class="field-even">var DocumentNode GET_DOMAIN_OWNERS</dt>
+<dd class="field-even"><p>get scalar fields of a domain’s owning organizations</p>
+</dd>
+<dt class="field-odd">var DocumentNode GET_ORG_DOMAINS</dt>
+<dd class="field-odd"><p>get scalar fields of an organization’s owned domains</p>
+</dd>
+<dt class="field-even">var DocumentNode DMARC_SUMMARY</dt>
+<dd class="field-even"><p>get a domain’s DMARC summary for one month</p>
+</dd>
+<dt class="field-odd">var DocumentNode YEARLY_DMARC_SUMMARIES</dt>
+<dd class="field-odd"><p>get a domain’s yearly DMARC summaries</p>
+</dd>
+<dt class="field-even">var DocumentNode SUMMARY_BY_SLUG</dt>
+<dd class="field-even"><p>get summary metrics for one organization</p>
+</dd>
+<dt class="field-odd">var DocumentNode ALL_RESULTS</dt>
+<dd class="field-odd"><p>get all scan results for a domain</p>
+</dd>
+<dt class="field-even">var DocumentNode WEB_RESULTS</dt>
+<dd class="field-even"><p>get web scan results for a domain</p>
+</dd>
+<dt class="field-odd">var DocumentNode EMAIL_RESULTS</dt>
+<dd class="field-odd"><p>get email scan results for a domain</p>
+</dd>
+<dt class="field-even">var DocumentNode DOMAIN_STATUS</dt>
+<dd class="field-even"><p>get pass/fail compliance statuses for a domain</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="indices">
+<h1>Indices<a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">tracker client</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-modules/index">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;Her Majesty the Queen in Right of Canada, as represented by the Treasury Board of Canada Secretariat, 2021.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
